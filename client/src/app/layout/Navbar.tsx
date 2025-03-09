@@ -1,14 +1,18 @@
 import { Group } from "@mui/icons-material";
-import { Box, AppBar, Toolbar, Typography, Container, MenuItem } from "@mui/material";
+import { Box, AppBar, Toolbar, Typography, Container, MenuItem, LinearProgress } from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/component/MenuItemLink";
+import { useStore } from "../../lib/hooks/useStore";
+import { Observer } from "mobx-react-lite";
 
 
 export default function Navbar() {
+    const {uiStore} = useStore();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{
-                backgroundImage: "linear-gradient(15deg, #4facfe 0%, #00f2fe 30%, #182a73 100%)"
+                backgroundImage: "linear-gradient(15deg, #4facfe 0%, #00f2fe 30%, #182a73 100%)",
+                position: "relative"
             }}>
                 <Container maxWidth="xl">
                     <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -25,12 +29,29 @@ export default function Navbar() {
                             <MenuItemLink to="/createActivity" >
                                 Create Activity
                             </MenuItemLink>
+                            <MenuItemLink to="/counter" >
+                                Counter
+                            </MenuItemLink>
                         </Box>
                         <MenuItem>
                             User Menu
                         </MenuItem>
                     </Toolbar>
                 </Container>
+                <Observer>
+                    {() => uiStore.isLoading ? (
+                        <LinearProgress
+                            color="secondary"
+                            sx={{
+                                position: "absolute",
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                height: 4
+                            }}
+                        />
+                    ) : null}
+                </Observer>
             </AppBar>
         </Box>
     )
