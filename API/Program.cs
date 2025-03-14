@@ -40,7 +40,8 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(builder => builder.AllowAnyOrigin()
+app.UseCors(builder => builder.AllowCredentials()
+                                .WithOrigins("https://localhost:3000")
                                 .AllowAnyMethod()
                                 .AllowAnyHeader());
 
