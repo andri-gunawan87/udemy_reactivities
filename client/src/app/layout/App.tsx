@@ -1,6 +1,6 @@
-import { Box, Container, CssBaseline } from "@mui/material"
-import Navbar from "./Navbar"
-import { Outlet, useLocation } from "react-router"
+import { Box, Container, CssBaseline } from "@mui/material";
+import Navbar from "./Navbar";
+import { Outlet, ScrollRestoration, useLocation } from "react-router";
 import HomePage from "../../features/activities/home/HomePage";
 
 function App() {
@@ -8,18 +8,20 @@ function App() {
 
   return (
     <Box sx={{ bgcolor: "#eeeeee", minHeight: "100vh" }}>
+      <ScrollRestoration />
       <CssBaseline />
-      {location.pathname == "/" ? <HomePage /> : (
+      {location.pathname == "/" ? (
+        <HomePage />
+      ) : (
         <>
           <Navbar />
           <Container maxWidth="xl" sx={{ mt: 3 }}>
             <Outlet />
           </Container>
         </>
-      )
-      }
+      )}
     </Box>
-  )
+  );
 }
 
-export default App
+export default App;
