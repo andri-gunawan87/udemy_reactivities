@@ -33,12 +33,18 @@ export default function ActivityCard({ activity }: Props) {
         justifyContent={"space-between"}
       >
         <CardHeader
-          avatar={<Avatar sx={{ width: 80, height: 80 }} />}
+          avatar={
+            <Avatar
+              src={activity.hostImageUrl}
+              sx={{ width: 80, height: 80 }}
+              alt="Image of Host"
+            />
+          }
           title={activity.title}
           subheader={
             <>
               Hosted by{" "}
-              <Link to={`/profile/${activity.hostId}`}>
+              <Link to={`/profiles/${activity.hostId}`}>
                 {activity.hostDisplayName}
               </Link>
             </>
