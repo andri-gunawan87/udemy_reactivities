@@ -3,8 +3,6 @@ import ActivityList from "./ActivityList";
 import ActivityFilters from "./ActivityFilters";
 
 export default function ActivityDashboard() {
-
-
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={8}>
@@ -14,5 +12,5 @@ export default function ActivityDashboard() {
         <ActivityFilters />
       </Grid2>
     </Grid2>
-  )
+  );
 }
