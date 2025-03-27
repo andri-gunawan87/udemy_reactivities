@@ -6,7 +6,7 @@ import {
   Typography,
   Container,
   MenuItem,
-  LinearProgress,
+  CircularProgress,
 } from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/component/MenuItemLink";
@@ -21,11 +21,10 @@ export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="static"
+        position="fixed"
         sx={{
           backgroundImage:
             "linear-gradient(15deg, #4facfe 0%, #00f2fe 30%, #182a73 100%)",
-          position: "relative",
         }}
       >
         <Container maxWidth="xl">
@@ -37,9 +36,29 @@ export default function Navbar() {
                 sx={{ display: "flex", gap: 2 }}
               >
                 <Group fontSize="large" />
-                <Typography variant="h4" fontWeight={"bold"}>
+                <Typography
+                  variant="h4"
+                  fontWeight={"bold"}
+                  sx={{ position: "relative" }}
+                >
                   Reactivities
                 </Typography>
+                <Observer>
+                  {() =>
+                    uiStore.isLoading ? (
+                      <CircularProgress
+                        size={20}
+                        thickness={7}
+                        sx={{
+                          color: "white",
+                          position: "absolute",
+                          top: "30%",
+                          left: "105%",
+                        }}
+                      />
+                    ) : null
+                  }
+                </Observer>
               </MenuItem>
             </Box>
             <Box sx={{ display: "flex" }}>
@@ -59,22 +78,6 @@ export default function Navbar() {
             </Box>
           </Toolbar>
         </Container>
-        <Observer>
-          {() =>
-            uiStore.isLoading ? (
-              <LinearProgress
-                color="secondary"
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: 4,
-                }}
-              />
-            ) : null
-          }
-        </Observer>
       </AppBar>
     </Box>
   );

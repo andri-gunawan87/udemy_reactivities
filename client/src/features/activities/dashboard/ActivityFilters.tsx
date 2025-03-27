@@ -9,8 +9,13 @@ import {
 } from "@mui/material";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
+import { useStore } from "../../../lib/hooks/useStore";
+import { observer } from "mobx-react-lite";
 
-export default function ActivityFilters() {
+const ActivityFilters = observer(function ActivityFilters() {
+  const {
+    activityStore: { setFilter, setStartDate, filter, startDate },
+  } = useStore();
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", gap: 3, borderRadius: 3 }}
@@ -29,13 +34,22 @@ export default function ActivityFilters() {
             <FilterList sx={{ mr: 1 }} /> Filters
           </Typography>
           <MenuList>
-            <MenuItem>
+            <MenuItem
+              selected={filter === "all"}
+              onClick={() => setFilter("all")}
+            >
               <ListItemText primary="All Events" />
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+              selected={filter === "isGoing"}
+              onClick={() => setFilter("isGoing")}
+            >
               <ListItemText primary="I'm Going" />
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+              selected={filter === "isHost"}
+              onClick={() => setFilter("isHost")}
+            >
               <ListItemText primary="I'm Hosting" />
             </MenuItem>
           </MenuList>
@@ -54,7 +68,10 @@ export default function ActivityFilters() {
           <Event sx={{ mr: 1 }} />
           Select Date
         </Typography>
-        <Calendar />
+        <Calendar
+          value={startDate}
+          onChange={(date) => setStartDate(date as Date)}
+        />
         <MenuList>
           <MenuItem>
             <ListItemText primary="All Dates" />
@@ -69,4 +86,6 @@ export default function ActivityFilters() {
       </Box>
     </Box>
   );
-}
+});
+
+export default ActivityFilters;
